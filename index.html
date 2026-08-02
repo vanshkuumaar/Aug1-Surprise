@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A breathtaking vintage love letter and scrapbook experience." />
+  <title>💌 To My Love</title>
+  <!-- Fonts embedded as base64 @font-face — no external CDN -->
+  <link rel="stylesheet" href="embedded-fonts.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="locked">
+
+  <!-- ============ IMAGE-BASED LOCK SCREEN ============ -->
+  <div id="pin-overlay" class="pin-overlay image-lock-screen">
+    <!-- 100% Opaque PIN Input Boxes aligned over the drawn boxes -->
+    <div class="image-pin-container" id="pin-boxes">
+      <input type="tel" class="image-pin-box pin-box" maxlength="1" autocomplete="off" inputmode="numeric" />
+      <input type="tel" class="image-pin-box pin-box" maxlength="1" autocomplete="off" inputmode="numeric" />
+      <input type="tel" class="image-pin-box pin-box" maxlength="1" autocomplete="off" inputmode="numeric" />
+      <input type="tel" class="image-pin-box pin-box" maxlength="1" autocomplete="off" inputmode="numeric" />
+    </div>
+
+    <p id="pin-error" class="image-pin-error">Wrong combination... ❤️</p>
+
+    <!-- Matching Small Wooden Treasure Box on Left Side of Lock Screen -->
+    <div class="treasure-area-left" id="treasure-box">
+      <div class="treasure-cloud" id="treasure-cloud">
+        <span>✧ Tap chest for hint... ✧</span>
+      </div>
+      <div class="small-wooden-chest interactive-item">
+        <div class="chest-lid"></div>
+        <div class="chest-body">
+          <span class="chest-lock">🗝️</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Poetry Puzzle Overlay -->
+    <div class="puzzle-overlay" id="puzzle-overlay">
+      <div class="puzzle-paper" id="puzzle-paper">
+        <div class="puzzle-wax-seal">🔐</div>
+        <h2 class="puzzle-heading">🌸 The Little Key</h2>
+        <div class="puzzle-divider"><span>❈</span>
+          <hr><span>♥</span>
+          <hr><span>❈</span>
+        </div>
+        <div class="puzzle-body">
+          <p class="puzzle-accent">A secret waits beyond this gate,</p>
+          <p>A page of love, a twist of fate.</p>
+          <p>No random code, no lucky try,</p>
+          <p>The answer isn't hidden high.</p>
+          <p class="puzzle-accent">Go back to where our stories grew,</p>
+          <p>One date for me, <strong>one date for you</strong>.</p>
+          <p>Place those beginnings <strong>side by side</strong>,</p>
+          <p class="puzzle-final">And watch this little heart unlock inside. 🔒❤️</p>
+        </div>
+        <div class="puzzle-divider puzzle-divider--small"><span>✧</span>
+          <hr><span>✧</span>
+        </div>
+        <button class="puzzle-close-btn" id="puzzle-close-btn">Close & Try Lock 🗝️</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio element powered by embedded Base64 Data URI -->
+  <audio id="bg-audio" loop preload="auto"></audio>
+
+  <!-- Global Layers -->
+  <div class="paper-bg" id="paper-bg"></div>
+  <div class="paper-grain"></div>
+  <div class="paper-foxing"></div>
+  <div class="sunlight-glow" id="sunlight"></div>
+  <div class="vignette" id="vignette"></div>
+  <canvas id="particles-canvas"></canvas>
+  <div class="custom-cursor" id="custom-cursor">🌸</div>
+
+  <div class="music-player interactive-item" id="music-player">
+    <button id="music-btn" aria-label="Toggle Music"><span id="music-icon">🎶</span></button>
+  </div>
+
+  <!-- ============ MAIN LAYOUT ============ -->
+  <div class="main-layout" id="main-content" style="opacity:0; pointer-events:none;">
+
+    <!-- Global Cherry Branch Overhang -->
+    <img data-asset="cherry_branch" alt="Cherry Branch" class="global-branch" />
+
+    <!-- LEFT: Sepia Memory Collage Panel -->
+    <div class="tree-panel decor-panel" style="padding: 0; overflow: hidden;">
+      <img data-asset="top_collage" alt="Memory Collage" class="decor-main-img interactive-item"
+        style="width: 100%; height: 100%; object-fit: contain; border-radius: 0;" />
+    </div>
+
+    <!-- RIGHT: Scrollable Letter Pages -->
+    <div class="letter-scroll">
+
+      <section class="letter-page page-hero" id="section-hero">
+        <div class="ripped-edge top"></div>
+        <div class="page-inner">
+          <div class="stationery-stamp">AIRMAIL LOVE EXPRESS</div>
+          <h1 class="hero-title">Happy<br><span class="script">Girlfriend's Day</span> ♥</h1>
+          <p class="hero-subtitle">❤️ To My Jalebi Baby ❤️</p>
+          <p class="hero-text"><em>A Little Piece of My Heart on Girlfriend's Day</em></p>
+          <div class="scroll-arrow">˅</div>
+        </div>
+        <img data-asset="vintage_icecream" alt="Vintage Ice Cream" class="scatter-deco interactive-item"
+          style="left: 1%; bottom: 8%; max-width: 180px; filter: drop-shadow(0 12px 24px rgba(0,0,0,0.4));" />
+        <img data-asset="pastel_cloud" alt="Pastel Cloud" class="scatter-deco scatter-flowers-hero interactive-item"
+          id="hero-flowers" style="max-width: 450px; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.45));" />
+        <div class="ripped-edge bottom"></div>
+      </section>
+
+      <section class="letter-page page-pink" id="section-1">
+        <div class="ripped-edge top"></div>
+        <div class="page-inner clearfix">
+          <div class="page-text" style="width: 100%; text-align: left;">
+            <div class="envelope-container interactive-item float-right" id="env-1" style="max-width: 52% !important;">
+              <img data-asset="chocolate_box" alt="Vintage Chocolate Box" class="deco-img img-envelope"
+                style="filter: drop-shadow(0 12px 25px rgba(0,0,0,0.45)); width: 100%;" />
+              <div class="secret-note">You are my peace.</div>
+            </div>
+            <h2 class="section-heading"><span class="num">01</span> 🌸 The Beginning</h2>
+            <p class="section-subtitle-line">"Open this with a smile..."</p>
+            <p class="letter-para">Happy Girlfriend's Day, my love. ❤️</p>
+            <p class="letter-para">To my Bandar,<br>My Doraemon,<br>My beautiful Jalebi Baby.</p>
+            <p class="letter-para">If this greeting has reached you, then it means one thing...<br>Someone, somewhere,
+              is thinking about you more than words could ever explain.</p>
+            <p class="letter-para">Today isn't about gifts.<br>It isn't about flowers.<br>It isn't even about
+              Girlfriend's Day.</p>
+            <p class="letter-para">It's about celebrating <strong>you</strong>—the person who unknowingly became my
+              favorite chapter.</p>
+            <p class="letter-para">So before you continue...<br>Close your eyes for one second.<br>Imagine me standing
+              in front of you...<br>Holding your hands...<br>Looking into your eyes...<br>And saying,</p>
+            <p class="letter-para quote">"Happy Girlfriend's Day, my love."</p>
+          </div>
+        </div>
+        <div class="ripped-edge bottom"></div>
+      </section>
+
+      <section class="letter-page page-cream" id="section-2">
+        <div class="ripped-edge top"></div>
+        <div class="page-inner clearfix">
+          <div class="page-text" style="width: 100%; text-align: left;">
+            <img data-asset="gratitude_image" alt="Gratitude" class="deco-img interactive-item float-left"
+              style="mix-blend-mode: normal;" />
+            <h2 class="section-heading"><span class="num">02</span> 🌷 Gratitude</h2>
+            <p class="section-subtitle-line">"Thank you for existing."</p>
+            <p class="letter-para">I don't think I say this enough.<br>Thank you.</p>
+            <p class="letter-para">For every "Have you eaten?"<br>For every random selfie.<br>For every good
+              morning.<br>For every goodnight.<br>For every laugh.<br>For every tiny effort.</p>
+            <p class="letter-para">For every moment when you chose <strong>us</strong>, even when distance tried to
+              make things difficult.</p>
+            <p class="letter-para">People often say love is shown through big gestures.<br>I disagree.</p>
+            <p class="letter-para quote">Love lives inside the smallest moments.</p>
+            <p class="letter-para">The little things you do...<br>Those are the things I fall in love with over and
+              over again.</p>
+          </div>
+        </div>
+        <div class="ripped-edge bottom"></div>
+      </section>
+
+      <section class="letter-page page-sky" id="section-3">
+        <div class="ripped-edge top"></div>
+        <div class="page-inner clearfix">
+          <div class="page-text" style="width: 100%; text-align: left;">
+            <h2 class="section-heading"><span class="num">03</span> 🌍 Distance <span
+                style="font-size:0.5em; vertical-align: middle;">(2200 km)</span></h2>
+            <p class="section-subtitle-line">"If only kilometers had feelings..."</p>
+            <p class="letter-para">Sometimes...<br>I wish I could pause the world.<br>Just for one day.<br>Just so I
+              could sit beside you.</p>
+            <p class="letter-para">No phones.<br>No screens.<br>No countdown until the next call.<br>Just you and me.
+            </p>
+            <img data-asset="vintage_nordic" alt="Vintage Bouquet" class="deco-img interactive-item float-right"
+              style="max-width: 62% !important; margin-top: 1rem; margin-right: -1.5rem; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.45));" />
+            <p class="letter-para">There are moments when I miss you so much that words simply aren't enough.</p>
+            <p class="letter-para">But then I remember something beautiful...</p>
+            <p class="letter-para quote">Distance can separate two people.<br>It can never separate two hearts that
+              choose each other every single day.</p>
+            <p class="letter-para">And every day...<br>I choose you.</p>
+          </div>
+        </div>
+        <div class="scatter-deco scatter-plane interactive-item">✈️</div>
+        <div class="ripped-edge bottom"></div>
+      </section>
+
+      <section class="letter-page page-blush" id="section-bouquet">
+        <div class="ripped-edge top"></div>
+        <div class="page-inner center-content">
+          <div class="bouquet-scene interactive-item">
+            <div class="bouquet-card" id="bouquet-card">
+              <div class="bouquet-face bouquet-front">
+                <img data-asset="vintage_bouquet" alt="Vintage Bouquet" class="bouquet-img" />
+                <div class="wax-seal">💌</div>
+                <p class="bouquet-hint">Tap to unwrap</p>
+              </div>
+              <div class="bouquet-face bouquet-back">
+                <div class="photo-frame">
+                  <img data-asset="couple" alt="My heart" class="baby-img" />
+                  <div class="photo-caption">My heart ❤️</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ripped-edge bottom"></div>
+      </section>
+
+      <section class="letter-page page-lavender" id="section-4">
+        <div class="ripped-edge top"></div>
+        <div class="page-inner clearfix">
+          <div class="page-text" style="width: 100%; text-align: left;">
+            <img data-asset="vintage_camera" alt="Vintage Camera" class="deco-img interactive-item float-left" />
+            <h2 class="section-heading"><span class="num">04</span> 🌱 Our Faults</h2>
+            <p class="section-subtitle-line">"Love isn't about being perfect. It's about growing together."</p>
+            <p class="letter-para">We're not perfect, and maybe that's what makes us real.</p>
+            <p class="letter-para">Sometimes our egos win.<br>Sometimes misunderstandings become bigger than they
+              should.</p>
+            <p class="letter-para">I know I make mistakes too. I get angry over small things and argue when I should
+              be more patient. I'm sorry, and I'll keep trying to become better for us.</p>
+            <p class="letter-para">There's just one thing I hope for from you too. Sometimes when your replies feel
+              cold or end with just a simple <strong>"hmm,"</strong> my heart starts wondering if I'm still as special
+              to you as you are to me. Maybe you don't mean it that way, but it matters to me.</p>
+            <p class="letter-para">So on this Girlfriend's Day, let's make one promise—to choose understanding over
+              ego, communication over silence, and love over every misunderstanding.</p>
+            <p class="letter-para">Because it'll never be <strong>me vs. you.</strong></p>
+            <p class="letter-para quote">It'll always be us vs. the problem. ❤️</p>
+          </div>
+        </div>
+        <div class="ripped-edge bottom"></div>
+      </section>
+
+      <section class="letter-page page-peach" id="section-5">
+        <div class="ripped-edge top"></div>
+        <div class="page-inner clearfix">
+          <div class="page-text" style="width: 100%; text-align: left;">
+            <img data-asset="fave_person" alt="My Favorite Person"
+              class="deco-img interactive-item vintage-photo-filter vintage-frame-border float-right" />
+            <h2 class="section-heading"><span class="num">05</span> 😂 My Favorite Person</h2>
+            <p class="section-subtitle-line">"You make life lighter."</p>
+            <p class="letter-para">You know what's funny?<br>Sometimes you annoy me.<br>Sometimes you make fun of
+              me.<br>Sometimes you steal every argument with one cute message.</p>
+            <p class="letter-para">And somehow...<br>I still end up smiling.</p>
+            <p class="letter-para">You're not just my girlfriend.<br>You're also my best friend.<br>My comfort
+              person.<br>My biggest distraction.<br>My safest place.</p>
+            <p class="letter-para quote">Life became brighter the day you became part of it.</p>
+          </div>
+        </div>
+        <div class="scatter-deco scatter-bear-2 interactive-item deco-teddy">🧸</div>
+        <div class="scatter-deco scatter-star-1">⭐</div>
+        <div class="ripped-edge bottom"></div>
+      </section>
+
+      <section class="letter-page page-cream" id="section-6">
+        <div class="ripped-edge top"></div>
+        <div class="page-inner clearfix">
+          <div class="page-text" style="width: 100%; text-align: left;">
+            <h2 class="section-heading"><span class="num">06</span> 💖 Things I'll Never Get Tired Of</h2>
+            <p class="letter-para">I'll never get tired of...</p>
+            <img data-asset="tired_teddy" alt="Tired Teddy" class="deco-img interactive-item float-right"
+              style="max-width: 65%; margin-top: 1rem; margin-left: -5%; filter: drop-shadow(0 12px 25px rgba(0,0,0,0.45));" />
+            <p class="letter-para"><br>Waiting for your message.<br>Hearing your
+              voice.<br>Watching you smile.<br>Calling you "Jalebi Baby."<br>Missing you.<br>Caring about
+              you.<br>Praying for you.<br>Loving you.</p>
+            <p class="letter-para">Saying "I love you" out of nowhere.</p>
+            <p class="letter-para">The way you look when you're sleepy.</p>
+            <p class="letter-para">Everything about you, today, tomorrow, and forever.</p>
+            <p class="letter-para quote">Some people search their whole lives for someone who feels like home.<br>I
+              found mine.<br>And she lives inside my heart.</p>
+          </div>
+        </div>
+        <div class="scatter-deco scatter-key interactive-item">🗝️</div>
+        <div class="ripped-edge bottom"></div>
+      </section>
+
+      <section class="letter-page page-sage" id="section-7">
+        <div class="ripped-edge top"></div>
+        <div class="page-inner clearfix">
+          <div class="page-text" style="width: 100%; text-align: left;">
+            <h2 class="section-heading"><span class="num">07</span> 🌹 My Promise</h2>
+            <p class="letter-para">I don't promise perfection.</p>
+            <p class="letter-para">We'll have misunderstandings.<br>Bad days.<br>Silent
+              moments.<br>Stress.<br>Distance.<br>Life will test us.</p>
+            <p class="letter-para">But here's what I can promise.</p>
+            <div class="envelope-container interactive-item float-right" id="env-2"
+              style="max-width: 58% !important; margin-top: 1.5rem; margin-right: -1.5rem; position: relative;">
+              <img data-asset="promise_gift" alt="Promise Gift" class="deco-img img-envelope"
+                style="mix-blend-mode: normal; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); width: 100%;" />
+              <div class="secret-note">I'd choose you again.</div>
+            </div>
+            <p class="letter-para">I'll keep choosing you.<br>I'll communicate.<br>I'll apologize when I'm
+              wrong.<br>I'll celebrate your happiest moments.<br>I'll stand beside you during your hardest ones.</p>
+            <p class="letter-para">And no matter what happens...</p>
+            <p class="letter-para quote">I'll never let you wonder whether you're loved.<br>Because you are.<br>Every
+              single day.</p>
+          </div>
+        </div>
+        <div class="scatter-deco scatter-gift interactive-item">🎁</div>
+        <div class="ripped-edge bottom"></div>
+      </section>
+
+      <section class="letter-page page-sunset" id="section-8">
+        <div class="ripped-edge top"></div>
+        <div class="page-inner clearfix">
+          <div class="page-text" style="width: 100%; text-align: left;">
+            <img data-asset="autumn_teddy" alt="Autumn Teddy" class="deco-img interactive-item float-left" />
+            <h2 class="section-heading"><span class="num">08</span> 🌅 Our Tomorrow</h2>
+            <p class="letter-para">I dream about the day...</p>
+            <p class="letter-para">When "I miss you" becomes "I'm home."<br>When goodnight kisses aren't sent through a
+              screen.<br>When hugs don't have to wait.<br>When I don't have to imagine holding your hand...<br>Because
+              I'll already be holding it.</p>
+            <p class="letter-para">One day...<br>We'll laugh about these long-distance days.<br>Not because they were
+              easy...</p>
+            <p class="letter-para quote">"I can't wait for all our tomorrows."</p>
+          </div>
+        </div>
+        <div class="scatter-deco scatter-star-2 interactive-item">🌙</div>
+        <div class="ripped-edge bottom"></div>
+      </section>
+
+      <section class="letter-page page-night" id="section-9">
+        <div class="ripped-edge top"></div>
+        <div class="page-inner clearfix" style="position: relative;">
+          <div class="page-text" style="width: 100%; text-align: left;">
+            <h2 class="section-heading"><span class="num">09</span> ❤️ The End... Or Maybe Just The Beginning</h2>
+            <p class="letter-para">My beautiful Bandar.<br>My adorable Doraemon.<br>My kid.</p>
+            <img data-asset="books_lamp" alt="Vintage Books & Lamp" class="deco-img interactive-item float-right"
+              style="max-width: 220px; margin: 0.5rem -0.5rem 1rem 1.5rem; filter: drop-shadow(0 12px 25px rgba(0,0,0,0.45));" />
+            <p class="letter-para">Thank you for becoming the person I never knew I needed.<br>You have changed my
+              days in ways you'll probably never fully understand.</p>
+            <p class="letter-para">If someone ever asks me what love feels like...<br>I'll simply tell them your name.
+            </p>
+            <p class="letter-para">Happy Girlfriend's Day, my love.</p>
+            <p class="letter-para">No matter where life takes us...<br>No matter how many miles stand between
+              us...<br>No matter how much time passes...</p>
+            <p class="letter-para quote">You'll always have a home inside my heart.</p>
+            <p class="letter-para">And if I had to choose all over again...<br>In every lifetime.<br>In every
+              universe.<br>Among billions of people...</p>
+            <p class="letter-para">I would still find you.<br>I would still choose you.<br>And I would still fall in
+              love with you.</p>
+
+            <div class="end-signature-row"
+              style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 2rem; flex-wrap: wrap;">
+              <p class="letter-para signature" style="margin-top: 0; text-align: left;">
+                <strong>Forever and Always,</strong><br>
+                <span class="sign">❤️ Your Vansh</span>
+              </p>
+              <img data-asset="end_bouquet" alt="Floral Bouquet" class="end-bouquet-img interactive-item"
+                style="max-width: 260px; width: 100%; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.5)); transform: rotate(-5deg);" />
+            </div>
+          </div>
+        </div>
+        <div class="scatter-deco scatter-infinity interactive-item">♾️</div>
+        <div class="ripped-edge bottom"></div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- All dependencies self-contained — no external CDNs -->
+  <script src="embedded-assets.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
